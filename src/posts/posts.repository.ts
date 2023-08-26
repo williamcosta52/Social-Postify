@@ -33,4 +33,9 @@ export class PostsRepository {
       where: { id },
     });
   }
+  async deletePost(id: number) {
+    return await this.prisma.posts.delete({
+      where: { id },
+    });
+  }
 }

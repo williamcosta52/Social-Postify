@@ -23,4 +23,11 @@ export class PostsService {
     console.log(body);
     return this.postsRepository.updatePost(id, body);
   }
+  async deletePost(id: number) {
+    const findPost = await this.postsRepository.getPostById(id);
+    if (!findPost)
+      throw new HttpException('post not found', HttpStatus.NOT_FOUND);
+    //TODO: VERIFICAR SE O POST NÃO TA LIGADO A NENHUMA PUBLICAÇÃO
+    return this.postsRepository.deletePost(id);
+  }
 }

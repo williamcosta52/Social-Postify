@@ -16,4 +16,11 @@ export class MediasService {
   getAllMedias() {
     return this.mediasRepository.getAllMedias();
   }
+  async getMediaById(id: number) {
+    const media = await this.mediasRepository.getMediaById(id);
+    if (!media) {
+      throw new HttpException('media not found!', HttpStatus.NOT_FOUND);
+    }
+    return media;
+  }
 }

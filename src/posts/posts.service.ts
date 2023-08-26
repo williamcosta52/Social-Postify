@@ -9,4 +9,7 @@ export class PostsService {
   createPost(body: CreatePost) {
     return this.postsRepository.createPost(body);
   }
+  getAllPosts() {
+    return this.postsRepository.getAllPosts();
+  }
 }

@@ -25,4 +25,6 @@ export class UpdatePost {
   })
   @IsString()
   text: string;
+
+  image?: string;
 }

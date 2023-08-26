@@ -20,6 +20,7 @@ export class PostsService {
   async updatePost(id: number, body: UpdatePost) {
     const post = await this.postsRepository.getPostById(id);
     if (!post) throw new HttpException('post not found', HttpStatus.NOT_FOUND);
+    console.log(body);
     return this.postsRepository.updatePost(id, body);
   }
 }

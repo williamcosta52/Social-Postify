@@ -28,6 +28,7 @@ export class PostsRepository {
       data: {
         text: body.text,
         title: body.title,
+        image: body.image,
       },
       where: { id },
     });

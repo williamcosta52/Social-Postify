@@ -5,6 +5,9 @@ import { mediasRepository } from './medias.repository';
 @Injectable()
 export class MediasService {
   constructor(private readonly mediasRepository: mediasRepository) {}
+  getAllMedias() {
+    return this.mediasRepository.getAllMedias();
+  }
   async createMedia(body: Media) {
     const verifyDuplicateMedia =
       await this.mediasRepository.verifyDuplicateMedia(body);
@@ -12,9 +15,6 @@ export class MediasService {
       throw new HttpException('conflict', HttpStatus.CONFLICT);
     }
     return this.mediasRepository.createMedia(body);
-  }
-  getAllMedias() {
-    return this.mediasRepository.getAllMedias();
   }
   async getMediaById(id: number) {
     const media = await this.mediasRepository.getMediaById(id);

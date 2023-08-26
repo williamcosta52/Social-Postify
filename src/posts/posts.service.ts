@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreatePost } from './dtos/posts.dto';
+import { CreatePost, UpdatePost } from './dtos/posts.dto';
 import { PostsRepository } from './posts.repository';
 
 @Injectable()
@@ -16,5 +16,10 @@ export class PostsService {
     const post = await this.postsRepository.getPostById(id);
     if (!post) throw new HttpException('post not found', HttpStatus.NOT_FOUND);
     return post;
+  }
+  async updatePost(id: number, body: UpdatePost) {
+    const post = await this.postsRepository.getPostById(id);
+    if (!post) throw new HttpException('post not found', HttpStatus.NOT_FOUND);
+    return this.postsRepository.updatePost(id, body);
   }
 }

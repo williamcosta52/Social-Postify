@@ -19,5 +19,7 @@ export class PostsController {
     return this.postsService.getPostById(Number(id));
   }
   @Put('posts/:id')
-  updatePost(@Param('id') id: string, body: UpdatePost) {}
+  updatePost(@Param('id') id: string, body: UpdatePost) {
+    return this.postsService.updatePost(Number(id), body);
+  }
 }

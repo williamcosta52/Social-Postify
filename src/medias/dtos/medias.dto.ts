@@ -13,3 +13,7 @@ export class Media {
   })
   username: string;
 }
+export class MediaUpdate {
+  title?: string;
+  username?: string;
+}

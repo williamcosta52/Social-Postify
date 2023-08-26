@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { MediasService } from './medias.service';
-import { Media } from './dtos/medias.dto';
+import { Media, MediaUpdate } from './dtos/medias.dto';
 
 @Controller()
 export class MediasController {
@@ -17,5 +25,13 @@ export class MediasController {
   @Get('medias/:id')
   getMediaById(@Param('id') id: string) {
     return this.mediasService.getMediaById(Number(id));
+  }
+  @Put('medias/:id')
+  updateMedia(@Param('id') id: string, @Body() body: MediaUpdate) {
+    return this.mediasService.updateMedia(Number(id), body);
+  }
+  @Delete('medias/:id')
+  deleteMedia(@Param('id') id: string) {
+    return this.mediasService.deleteMedia(Number(id));
   }
 }

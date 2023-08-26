@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Media } from './dtos/medias.dto';
+import { Media, MediaUpdate } from './dtos/medias.dto';
 import { mediasRepository } from './medias.repository';
 
 @Injectable()
@@ -22,5 +22,28 @@ export class MediasService {
       throw new HttpException('media not found!', HttpStatus.NOT_FOUND);
     }
     return media;
+  }
+  async updateMedia(id: number, body: MediaUpdate) {
+    const verifyMediaById = await this.mediasRepository.getMediaById(id);
+    if (!verifyMediaById) {
+      throw new HttpException('media not found', HttpStatus.NOT_FOUND);
+    }
+    const verifyUsernameAndTitle =
+      await this.mediasRepository.verifyDuplicateMedia(body);
+    if (verifyUsernameAndTitle) {
+      throw new HttpException(
+        'cannot update a media with a same title or username existent',
+        HttpStatus.CONFLICT,
+      );
+    }
+    return this.mediasRepository.updateMedia(id, body);
+  }
+  async deleteMedia(id: number) {
+    const verifyMediaById = await this.mediasRepository.getMediaById(id);
+    if (!verifyMediaById) {
+      throw new HttpException('media not found', HttpStatus.NOT_FOUND);
+    }
+    //TODO: VERIFICAR SE A MEDIA TA LIGADA A ALGUMA PUBLICAÇÃO
+    return this.mediasRepository.deleteMedia(id);
   }
 }

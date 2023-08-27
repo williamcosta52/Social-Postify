@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MediasController } from './medias.controller';
 import { MediasService } from './medias.service';
-import { mediasRepository } from './medias.repository';
+import { MediasRepository } from './medias.repository';
 
 @Module({
   controllers: [MediasController],
-  providers: [MediasService, mediasRepository],
+  providers: [MediasService, MediasRepository],
+  exports: [MediasRepository],
 })
 export class MediasModule {}

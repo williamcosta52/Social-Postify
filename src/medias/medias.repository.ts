@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Global, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Media, MediaUpdate } from './dtos/medias.dto';
 
-@Injectable()
-export class mediasRepository {
+@Global()
+export class MediasRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async verifyDuplicateMedia(body: Media | MediaUpdate) {

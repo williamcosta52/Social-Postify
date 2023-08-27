@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Media, MediaUpdate } from './dtos/medias.dto';
-import { mediasRepository } from './medias.repository';
+import { MediasRepository } from './medias.repository';
 
 @Injectable()
 export class MediasService {
-  constructor(private readonly mediasRepository: mediasRepository) {}
+  constructor(private readonly mediasRepository: MediasRepository) {}
   getAllMedias() {
     return this.mediasRepository.getAllMedias();
   }

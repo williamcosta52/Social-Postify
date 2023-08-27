@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Global, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePost, UpdatePost } from './dtos/posts.dto';
 
-@Injectable()
+@Global()
 export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
 

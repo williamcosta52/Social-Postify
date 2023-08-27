@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -23,15 +24,15 @@ export class PostsController {
     return this.postsService.getAllPosts();
   }
   @Get('posts/:id')
-  getPostById(@Param('id') id: string) {
-    return this.postsService.getPostById(Number(id));
+  getPostById(@Param('id', ParseIntPipe) id: number) {
+    return this.postsService.getPostById(id);
   }
   @Put('posts/:id')
-  updatePost(@Param('id') id: string, @Body() body: UpdatePost) {
-    return this.postsService.updatePost(Number(id), body);
+  updatePost(@Param('id', ParseIntPipe) id: number, @Body() body: UpdatePost) {
+    return this.postsService.updatePost(id, body);
   }
   @Delete('posts/:id')
-  deletePost(@Param('id') id: string) {
-    return this.postsService.deletePost(Number(id));
+  deletePost(@Param('id', ParseIntPipe) id: number) {
+    return this.postsService.deletePost(id);
   }
 }

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -23,15 +24,18 @@ export class MediasController {
     return this.mediasService.getAllMedias();
   }
   @Get('medias/:id')
-  getMediaById(@Param('id') id: string) {
-    return this.mediasService.getMediaById(Number(id));
+  getMediaById(@Param('id', ParseIntPipe) id: number) {
+    return this.mediasService.getMediaById(id);
   }
   @Put('medias/:id')
-  updateMedia(@Param('id') id: string, @Body() body: MediaUpdate) {
-    return this.mediasService.updateMedia(Number(id), body);
+  updateMedia(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: MediaUpdate,
+  ) {
+    return this.mediasService.updateMedia(id, body);
   }
   @Delete('medias/:id')
-  deleteMedia(@Param('id') id: string) {
-    return this.mediasService.deleteMedia(Number(id));
+  deleteMedia(@Param('id', ParseIntPipe) id: number) {
+    return this.mediasService.deleteMedia(id);
   }
 }

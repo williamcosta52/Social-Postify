@@ -29,7 +29,7 @@ export class PublicationService {
     const publi = await this.publicationRepository.getPublicationById(id);
     const media = await this.mediasRepository.getMediaById(body.mediaId);
     const post = await this.postsRepository.getPostById(body.postId);
-    if (publi.date > new Date()) {
+    if (publi.date < new Date()) {
       throw new HttpException(
         'cannot update a posted publication',
         HttpStatus.FORBIDDEN,

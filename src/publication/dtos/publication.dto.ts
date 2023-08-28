@@ -10,7 +10,6 @@ export class CreatePublication {
   postId: number;
 
   @IsNotEmpty()
-  @IsDate()
   date: Date;
 }
 export class UpdatePublication extends CreatePublication {}

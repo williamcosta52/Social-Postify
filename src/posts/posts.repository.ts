@@ -1,11 +1,10 @@
-import { Global, Injectable } from '@nestjs/common';
+import { Global } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePost, UpdatePost } from './dtos/posts.dto';
 
 @Global()
 export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
-
   async createPost(body: CreatePost) {
     return await this.prisma.posts.create({
       data: {

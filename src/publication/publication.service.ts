@@ -11,7 +11,6 @@ export class PublicationService {
     private readonly postsRepository: PostsRepository,
     private readonly publicationRepository: PublicationRepository,
   ) {}
-
   async createPublication(body: CreatePublication) {
     const media = await this.mediasRepository.getMediaById(body.mediaId);
     const post = await this.postsRepository.getPostById(body.postId);

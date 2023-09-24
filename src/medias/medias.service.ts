@@ -1,10 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Media, MediaUpdate } from './dtos/medias.dto';
 import { MediasRepository } from './medias.repository';
+import { PublicationRepository } from '../publication/publication.repository';
 
 @Injectable()
 export class MediasService {
-  constructor(private readonly mediasRepository: MediasRepository) {}
+  constructor(
+    private readonly mediasRepository: MediasRepository,
+    private readonly publicationRepository: PublicationRepository,
+  ) {}
   getAllMedias() {
     return this.mediasRepository.getAllMedias();
   }
@@ -43,7 +47,10 @@ export class MediasService {
     if (!verifyMediaById) {
       throw new HttpException('media not found', HttpStatus.NOT_FOUND);
     }
-    //TODO: VERIFICAR SE A MEDIA TA LIGADA A ALGUMA PUBLICAÇÃO
+    const cantDelete =
+      await this.publicationRepository.getPublicationByMediaId(id);
+    if (cantDelete)
+      throw new HttpException('cant delete this media', HttpStatus.CONFLICT);
     return this.mediasRepository.deleteMedia(id);
   }
 }

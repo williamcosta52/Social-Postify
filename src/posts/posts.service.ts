@@ -1,11 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePost, UpdatePost } from './dtos/posts.dto';
 import { PostsRepository } from './posts.repository';
+import { PublicationRepository } from '../publication/publication.repository';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly postsRepository: PostsRepository) {}
-
+  constructor(
+    private readonly postsRepository: PostsRepository,
+    private readonly publicationRepository: PublicationRepository,
+  ) {}
   createPost(body: CreatePost) {
     return this.postsRepository.createPost(body);
   }
@@ -26,7 +29,10 @@ export class PostsService {
     const findPost = await this.postsRepository.getPostById(id);
     if (!findPost)
       throw new HttpException('post not found', HttpStatus.NOT_FOUND);
-    //TODO: VERIFICAR SE O POST NÃO TA LIGADO A NENHUMA PUBLICAÇÃO
+    const cantDelete =
+      await this.publicationRepository.getPublicationWithPostId(id);
+    if (cantDelete)
+      throw new HttpException('cant delete this post', HttpStatus.CONFLICT);
     return this.postsRepository.deletePost(id);
   }
 }

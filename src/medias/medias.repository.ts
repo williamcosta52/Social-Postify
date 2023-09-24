@@ -1,11 +1,10 @@
-import { Global, Injectable } from '@nestjs/common';
+import { Global } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Media, MediaUpdate } from './dtos/medias.dto';
 
 @Global()
 export class MediasRepository {
   constructor(private readonly prisma: PrismaService) {}
-
   async verifyDuplicateMedia(body: Media | MediaUpdate) {
     return await this.prisma.medias.findFirst({
       where: {

@@ -11,5 +11,6 @@ import { PostsModule } from '../posts/posts.module';
   controllers: [PublicationController],
   providers: [PublicationService, PublicationRepository],
   imports: [PostsRepository, MediasRepository, MediasModule, PostsModule],
+  exports: [PublicationRepository],
 })
 export class PublicationModule {}
